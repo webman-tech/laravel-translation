@@ -6,7 +6,10 @@
   "autoload": {
     "psr-4": {
       "WebmanTech\\LaravelTranslation\\": "src"
-    }
+    },
+    "files": [
+      "src/helper.php"
+    ]
   },
   "require": {
     "php": ">=7.2",
