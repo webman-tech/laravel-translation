@@ -22,11 +22,19 @@ class Translator
      * @var null|TranslatorContract
      */
     protected static $_instance = null;
+    /**
+     * @var bool
+     */
+    protected static $_shouldChangeLocale = false;
 
     public static function instance(): TranslatorContract
     {
         if (!static::$_instance) {
             static::$_instance = static::createTranslator();
+            static::$_shouldChangeLocale = config('plugin.webman-tech.laravel-translation.app.change_locale', class_exists(\Symfony\Component\Translation\Translator::class));
+        }
+        if (static::$_shouldChangeLocale) {
+            static::$_instance->setLocale(locale());
         }
         return static::$_instance;
     }
