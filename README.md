@@ -46,8 +46,6 @@ class FooController
 
 ### 手动切换 locale
 
-### 手动切换 locale
-
 因为没有 Laravel App 的存在，所以不能通过 `App::setLocale()` 和 `App::currentLocale()` 来切换语言
 
 且由于 webman 建议的多语言是使用的 `symfony/translation`，并且全局 `locale` 函数也是使用其实现的
