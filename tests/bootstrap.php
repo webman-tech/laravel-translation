@@ -1,15 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use WebmanTech\LaravelTranslation\Helper\ConfigHelper;
 
-if (!file_exists(__DIR__ . '/support/helpers.php')) {
-    mkdir(__DIR__ . '/support');
-    copy(__DIR__ . '/../vendor/workerman/webman-framework/src/support/helpers.php', __DIR__ . '/support/helpers.php');
+if (base_path('/config/app.php')) {
+    copy_dir(__DIR__. '/config', base_path('/config'));
 }
-require_once __DIR__ . '/support/helpers.php';
 
-if (!file_exists(__DIR__ . '/config/plugin/webman-tech/laravel-translation')) {
-    \WebmanTech\LaravelTranslation\Install::install();
+if (!is_dir(base_path('resource/translations'))) {
+    copy_dir(__DIR__. '/resource', base_path('/resource'));
 }
 
 require_once __DIR__ . '/../vendor/workerman/webman-framework/src/support/bootstrap.php';

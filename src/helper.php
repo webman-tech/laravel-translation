@@ -10,7 +10,7 @@ if (!function_exists('transL')) {
      * @param string|null $key
      * @param array $replace
      * @param string|null $locale
-     * @return \Illuminate\Contracts\Translation\Translator|string|array|null
+     * @return ($key is null ? \Illuminate\Contracts\Translation\Translator : array|string)
      */
     function transL($key = null, $replace = [], $locale = null)
     {

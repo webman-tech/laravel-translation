@@ -9,7 +9,7 @@ class Install
      * @var array
      */
     protected static $pathRelation = array (
-  'config/plugin/webman-tech/laravel-translation' => 'config/plugin/webman-tech/laravel-translation',
+  'copy/config/plugin/webman-tech/laravel-translation' => 'config/plugin/webman-tech/laravel-translation',
 );
 
     /**
@@ -70,5 +70,5 @@ class Install
             remove_dir($path);
         }
     }
-    
+
 }

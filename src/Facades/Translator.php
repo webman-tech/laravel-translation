@@ -7,6 +7,7 @@ use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator as LaravelTranslator;
+use WebmanTech\LaravelTranslation\Helper\ConfigHelper;
 
 /**
  * Laravel translation
@@ -21,17 +22,17 @@ class Translator
     /**
      * @var null|TranslatorContract
      */
-    protected static $_instance = null;
+    protected static ?TranslatorContract $_instance = null;
     /**
      * @var bool
      */
-    protected static $_shouldChangeLocale = false;
+    protected static bool $_shouldChangeLocale = false;
 
     public static function instance(): TranslatorContract
     {
         if (!static::$_instance) {
             static::$_instance = static::createTranslator();
-            static::$_shouldChangeLocale = config('plugin.webman-tech.laravel-translation.app.change_locale', class_exists(\Symfony\Component\Translation\Translator::class));
+            static::$_shouldChangeLocale = ConfigHelper::get('app.change_locale', class_exists(\Symfony\Component\Translation\Translator::class));
         }
         if (static::$_shouldChangeLocale) {
             static::$_instance->setLocale(locale());
@@ -39,8 +40,13 @@ class Translator
         return static::$_instance;
     }
 
+    /**
+     * https://github.com/laravel/framework/blob/11.x/src/Illuminate/Translation/TranslationServiceProvider.phphttps://github.com/laravel/framework/blob/11.x/src/Illuminate/Translation/TranslationServiceProvider.php
+     * @return TranslatorContract
+     */
     protected static function createTranslator(): TranslatorContract
     {
+        // registerLoader
         $loader = static::createLoader();
         $locale = config('translation.locale', 'zh_CN');
         $translator = new LaravelTranslator($loader, $locale);
